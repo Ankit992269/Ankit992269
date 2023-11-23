@@ -1,0 +1,39 @@
+from github import Github
+
+# Your GitHub personal access token
+token = 'YOUR_ACCESS_TOKEN'
+
+# Your GitHub username and repository name
+username = 'your_username'
+repository_name = 'your_repository_name'
+
+# Text for your resume
+resume_content = """
+# Your Name
+
+## Summary
+A brief summary about yourself...
+
+## Education
+- Degree, University, Year
+
+## Experience
+- Job Title, Company, Duration
+
+## Skills
+- Skill 1
+- Skill 2
+"""
+
+def create_resume_file(username, repository_name, file_name, content):
+    g = Github(token)
+    user = g.get_user(username)
+    repo = user.get_repo(repository_name)
+
+    # Create a file in the repository
+    repo.create_file(file_name, "Initial commit", content)
+
+if __name__ == "__main__":
+    resume_file_name = 'resume.md'  # Change the file extension based on your preference
+    create_resume_file(username, repository_name, resume_file_name, resume_content)
+    print(f"Resume file '{resume_file_name}' has been uploaded to '{username}/{repository_name}' on GitHub.")
